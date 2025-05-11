@@ -156,7 +156,7 @@ public class AngleIdentificationPanel extends TaskPanel {
         targetTypeToIdentifyThisQuestion = questionManager.getTargetAngleTypeToIdentify();
 
         if (targetTypeToIdentifyThisQuestion == null) { // All 4 target types identified
-            showFeedback("Excellent! You've identified all " + ANGLE_TYPES_TO_IDENTIFY
+            showFeedback("Excellent! You've identified all " + ANGLE_TYPES_TO_IDENTIFY_COUNT
                     + " target angle types. Task complete!", true);
             disableTaskInputs();
             angleDrawingPanel.setAngle(0);

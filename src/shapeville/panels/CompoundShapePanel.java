@@ -116,7 +116,7 @@ public class CompoundShapePanel extends TaskPanel {
 
     @Override
     protected void nextQuestion() {
-        if (questionManager.allCompoundShapesPracticedForTask(COMPOUND_SHAPES_TO_PRACTICE)) {
+        if (questionManager.allCompoundShapesPracticedForTask(COMPOUND_SHAPES_TO_PRACTICE_COUNT)) {
             showFeedback("Amazing! You've practiced all compound shapes. Task complete!", true);
             disableTaskInputs();
             shapeImageLabel.setIcon(null);

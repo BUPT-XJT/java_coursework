@@ -104,7 +104,7 @@ public class AreaCalculationPanel extends TaskPanel {
 
     @Override
     protected void nextQuestion() {
-        if (questionManager.allBasicAreaShapesPracticedForTask(BASIC_AREAS_TO_PRACTICE)) {
+        if (questionManager.allBasicAreaShapesPracticedForTask(BASIC_AREAS_TO_PRACTICE_COUNT)) {
             showFeedback("Well done! You've practiced all basic area shapes. Task complete!", true);
             disableTaskInputs();
             currentShapeDisplayLabel.setText("Task Complete!");

@@ -77,8 +77,8 @@ public class ShapeIdentificationPanel extends TaskPanel {
     protected void nextQuestion() {
         // Check if the required number of unique shapes for this session has been
         // identified
-        if (questionManager.allShapesIdentifiedForTask(is3DMode, SHAPES_TO_IDENTIFY)) {
-            showFeedback("Great! You've identified " + SHAPES_TO_IDENTIFY + " shapes. Task complete!", true);
+        if (questionManager.allShapesIdentifiedForTask(is3DMode, SHAPES_TO_IDENTIFY_COUNT)) {
+            showFeedback("Great! You've identified " + SHAPES_TO_IDENTIFY_COUNT + " shapes. Task complete!", true);
             disableTaskInputs();
             shapeImageLabel.setIcon(null); // Clear image
             shapeImageLabel.setText("Task Complete!");

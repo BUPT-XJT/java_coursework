@@ -117,7 +117,7 @@ public class SectorAreaPanel extends TaskPanel {
 
     @Override
     protected void nextQuestion() {
-        if (questionManager.allSectorsPracticedForTask(SECTORS_TO_PRACTICE)) {
+        if (questionManager.allSectorsPracticedForTask(SECTORS_TO_PRACTICE_COUNT)) {
             showFeedback("Excellent work! You've practiced all sector area calculations. Task complete!", true);
             disableTaskInputs();
             sectorImageLabel.setIcon(null);
