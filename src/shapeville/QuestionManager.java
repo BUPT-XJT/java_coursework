@@ -206,26 +206,29 @@ public class QuestionManager {
         // for the house part)
         // THIS IS JUST A PLACEHOLDER STRUCTURE.
         // YOU NEED TO ANALYZE EACH OF THE 9 SHAPES IN FIGURE 10.
-        Map<String, Object> shape1 = new HashMap<>();
-        shape1.put("id", "CS_Fig10_1");
-        shape1.put("name", "Compound Shape (Fig 10 - 1)"); // Use a descriptive name
-        shape1.put("image", "compound1.png"); // Ensure this image exists
+        // Map<String, Object> shape1 = new HashMap<>();
+        // shape1.put("id", "_Fig10_1");
+        // shape1.put("name", "Compound Shape (Fig 10 - 1)"); // Use a descriptive name
+        // shape1.put("image", "compound1.png"); // Ensure this image exists
 
         // Example for a shape made of a 14x5 rectangle and a triangle of base 14,
         // height 3
-        double rectArea1 = 14 * 5; // 70
-        double triArea1 = 0.5 * 14 * 3; // 21
-        double totalArea1 = rectArea1 + triArea1; // 91
-        shape1.put("area", totalArea1);
+        // double rectArea1 = 14 * 5; // 70
+        // double triArea1 = 0.5 * 14 * 3; // 21
+        // double totalArea1 = rectArea1 + triArea1; // 91
+        // shape1.put("area", totalArea1);
 
-        StringBuilder sol1 = new StringBuilder();
-        sol1.append("Split into a rectangle and a triangle.\n");
-        sol1.append("Rectangle: 14cm × 5cm = ").append(df.format(rectArea1)).append(" cm²\n");
-        sol1.append("Triangle: 0.5 × 14cm × 3cm = ").append(df.format(triArea1)).append(" cm²\n");
-        sol1.append("Total Area = ").append(df.format(rectArea1)).append(" + ").append(df.format(triArea1))
-                .append(" = ").append(df.format(totalArea1)).append(" cm²");
-        shape1.put("solution_breakdown", sol1.toString());
-        compoundShapesDataList.add(shape1);
+        // StringBuilder sol1 = new StringBuilder();
+        // sol1.append("Split into a rectangle and a triangle.\n");
+        // sol1.append("Rectangle: 14cm × 5cm = ").append(df.format(rectArea1)).append("
+        // cm²\n");
+        // sol1.append("Triangle: 0.5 × 14cm × 3cm =
+        // ").append(df.format(triArea1)).append(" cm²\n");
+        // sol1.append("Total Area = ").append(df.format(rectArea1)).append(" +
+        // ").append(df.format(triArea1))
+        // .append(" = ").append(df.format(totalArea1)).append(" cm²");
+        // shape1.put("solution_breakdown", sol1.toString());
+        // compoundShapesDataList.add(shape1);
 
         // ... ADD ALL 8 OTHER COMPOUND SHAPES FROM FIGURE 10 HERE ...
 
@@ -427,6 +430,143 @@ public class QuestionManager {
         // 2. Calculate area using PI = 3.14 and round to two decimal places.
         // 3. Create the "solution_formula" string.
         // 4. Add the Map to sectorAreaDataList.
+        Map<String, Object> sector2 = new HashMap<>();
+        sector2.put("id", "SA_Fig13_2");
+        sector2.put("name", "Sector (Fig 13 - 2: 18ft, 130°)");
+        sector2.put("image", "sector2.png"); // Ensure this image exists
+        double r2 = 18.0;
+        double angle2 = 130.0;
+        double area2 = (angle2 / 360.0) * 3.14 * r2 * r2;
+        sector2.put("area", Double.parseDouble(df.format(area2))); // Store rounded
+
+        StringBuilder sol2 = new StringBuilder();
+        sol2.append("Formula: Area = (θ/360) × π × r²\n");
+        sol2.append("Given: θ = ").append(angle2).append("°, r = ").append(r2).append(" cm, π ≈ 3.14\n");
+        sol2.append("Area = (").append(angle2).append("/360) × 3.14 × ").append(r2).append("²\n");
+        sol2.append("Area = ").append(df.format(angle2 / 360.0)).append(" × 3.14 × ").append(df.format(r2 * r2))
+                .append("\n");
+        sol2.append("Area ≈ ").append(df.format(area2)).append(" cm²");
+        sector2.put("solution_formula", sol2.toString());
+        sectorAreaDataList.add(sector2);
+
+            Map<String, Object> sector3 = new HashMap<>();
+        sector3.put("id", "SA_Fig13_3");
+        sector3.put("name", "Sector (Fig 13 - 3: 19cm, 120°)");
+        sector2.put("image", "sector3.png"); // Ensure this image exists
+        double r3 = 19.0;
+        double angle3 = 120.0;
+        double area3 = (angle3 / 360.0) * 3.14 * r3 * r3;
+        sector3.put("area", Double.parseDouble(df.format(area3))); // Store rounded
+
+        StringBuilder sol3 = new StringBuilder();
+        sol3.append("Formula: Area = (θ/360) × π × r²\n");
+        sol3.append("Given: θ = ").append(angle3).append("°, r = ").append(r3).append(" cm, π ≈ 3.14\n");
+        sol3.append("Area = (").append(angle3).append("/360) × 3.14 × ").append(r3).append("²\n");
+        sol3.append("Area = ").append(df.format(angle3 / 360.0)).append(" × 3.14 × ").append(df.format(r3 * r3))
+                .append("\n");
+        sol3.append("Area ≈ ").append(df.format(area3)).append(" cm²");
+        sector3.put("solution_formula", sol3.toString());
+        sectorAreaDataList.add(sector3);
+
+
+  Map<String, Object> sector4 = new HashMap<>();
+        sector4.put("id", "SA_Fig13_4");
+        sector4.put("name", "Sector (Fig 13 - 4: 22ft, 110°)");
+        sector4.put("image", "sector4.png"); // Ensure this image exists
+        double r4 = 22.0;
+        double angle4 = 110.0;
+        double area4 = (angle4 / 360.0) * 3.14 * r4 * r4;
+        sector4.put("area", Double.parseDouble(df.format(area4))); // Store rounded
+
+        StringBuilder sol4 = new StringBuilder();
+        sol4.append("Formula: Area = (θ/360) × π × r²\n");
+        sol4.append("Given: θ = ").append(angle4).append("°, r = ").append(r4).append(" cm, π ≈ 3.14\n");
+        sol4.append("Area = (").append(angle4).append("/360) × 3.14 × ").append(r4).append("²\n");
+        sol4.append("Area = ").append(df.format(angle4 / 360.0)).append(" × 3.14 × ").append(df.format(r4 * r4))
+                .append("\n");
+        sol4.append("Area ≈ ").append(df.format(area4)).append(" cm²");
+        sector4.put("solution_formula", sol4.toString());
+        sectorAreaDataList.add(sector4);
+
+
+
+        Map<String, Object> sector5 = new HashMap<>();
+        sector5.put("id", "SA_Fig13_5");
+        sector5.put("name", "Sector (Fig 13 - 5: 3.5m, 100°)");
+        sector5.put("image", "sector5.png"); // Ensure this image exists
+        double r5 = 3.5;
+        double angle5 = 100.0;
+        double area5 = (angle5 / 360.0) * 3.14 * r5 * r5;
+        sector5.put("area", Double.parseDouble(df.format(area5))); // Store rounded
+
+        StringBuilder sol5 = new StringBuilder();
+        sol5.append("Formula: Area = (θ/360) × π × r²\n");
+        sol5.append("Given: θ = ").append(angle5).append("°, r = ").append(r5).append(" cm, π ≈ 3.14\n");
+        sol5.append("Area = (").append(angle5).append("/360) × 3.14 × ").append(r5).append("²\n");
+        sol5.append("Area = ").append(df.format(angle5 / 360.0)).append(" × 3.14 × ").append(df.format(r5 * r5))
+                .append("\n");
+        sol5.append("Area ≈ ").append(df.format(area5)).append(" cm²");
+        sector5.put("solution_formula", sol5.toString());
+        sectorAreaDataList.add(sector5);
+
+        Map<String, Object> sector6 = new HashMap<>();
+        sector6.put("id", "SA_Fig13_6");
+        sector6.put("name", "Sector (Fig 13 - 6: 8in, 270°)");
+        sector6.put("image", "sector6.png"); // Ensure this image exists
+        double r6 = 8.0;
+        double angle6 = 270.0;
+        double area6 = (angle6 / 360.0) * 3.14 * r6 * r6;
+        sector6.put("area", Double.parseDouble(df.format(area6))); // Store rounded
+
+        StringBuilder sol6 = new StringBuilder();
+        sol6.append("Formula: Area = (θ/360) × π × r²\n");
+        sol6.append("Given: θ = ").append(angle6).append("°, r = ").append(r6).append(" cm, π ≈ 3.14\n");
+        sol6.append("Area = (").append(angle6).append("/360) × 3.14 × ").append(r6).append("²\n");
+        sol6.append("Area = ").append(df.format(angle6 / 360.0)).append(" × 3.14 × ").append(df.format(r6 * r6))
+                .append("\n");
+        sol6.append("Area ≈ ").append(df.format(area6)).append(" cm²");
+        sector6.put("solution_formula", sol6.toString());
+        sectorAreaDataList.add(sector6);
+
+       Map<String, Object> sector7 = new HashMap<>();
+        sector7.put("id", "SA_Fig13_7");
+        sector7.put("name", "Sector (Fig 13 - 7: 12yd, 280°)");
+        sector7.put("image", "sector7.png"); // Ensure this image exists
+        double r7 = 12.0;
+        double angle7 = 280.0;
+        double area7 = (angle7 / 360.0) * 3.14 * r7 * r7;
+        sector7.put("area", Double.parseDouble(df.format(area7))); // Store rounded
+
+        StringBuilder sol7 = new StringBuilder();
+        sol7.append("Formula: Area = (θ/360) × π × r²\n");
+        sol7.append("Given: θ = ").append(angle7).append("°, r = ").append(r7).append(" cm, π ≈ 3.14\n");
+        sol7.append("Area = (").append(angle7).append("/360) × 3.14 × ").append(r7).append("²\n");
+        sol7.append("Area = ").append(df.format(angle7 / 360.0)).append(" × 3.14 × ").append(df.format(r7 * r7))
+                .append("\n");
+        sol7.append("Area ≈ ").append(df.format(area7)).append(" cm²");
+        sector7.put("solution_formula", sol7.toString());
+        sectorAreaDataList.add(sector7);
+
+       Map<String, Object> sector8 = new HashMap<>();
+        sector8.put("id", "SA_Fig13_8");
+        sector8.put("name", "Sector (Fig 13 - 8: 15mm, 250°)");
+        sector8.put("image", "sector8.png"); // Ensure this image exists
+        double r8 = 15.0;
+        double angle8 = 250.0;
+        double area8 = (angle8 / 360.0) * 3.14 * r8 * r8;
+        sector8.put("area", Double.parseDouble(df.format(area8))); // Store rounded
+
+        StringBuilder sol8 = new StringBuilder();
+        sol8.append("Formula: Area = (θ/360) × π × r²\n");
+        sol8.append("Given: θ = ").append(angle8).append("°, r = ").append(r8).append(" cm, π ≈ 3.14\n");
+        sol8.append("Area = (").append(angle8).append("/360) × 3.14 × ").append(r8).append("²\n");
+        sol8.append("Area = ").append(df.format(angle8 / 360.0)).append(" × 3.14 × ").append(df.format(r8 * r8))
+                .append("\n");
+        sol8.append("Area ≈ ").append(df.format(area8)).append(" cm²");
+        sector8.put("solution_formula", sol8.toString());
+        sectorAreaDataList.add(sector8);
+
+
         if (sectorAreaDataList.isEmpty()) { // Add a default
             Map<String, Object> defaultSector = new HashMap<>();
             defaultSector.put("id", "SA_Default");

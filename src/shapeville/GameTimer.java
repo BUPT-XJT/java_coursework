@@ -25,24 +25,24 @@ public class GameTimer {
                 if (timeLeftSeconds > 0) {
                     timeLeftSeconds--;
                     updateLabel();
-                    // 添加每超过30秒弹窗的逻辑
-                    if ((durationSeconds - timeLeftSeconds) % 30 == 0) {
+                    // 添加每超过90秒弹窗的逻辑
+                    if ((durationSeconds - timeLeftSeconds) % 90 == 0) {
                         // 使用showOptionDialog显示带有yes和no按钮的对话框
                         int option = JOptionPane.showOptionDialog(null,
-                                "DO YOU NEED HELP？",
+                                "Hi, are you still working on this problem?",
                                 "Help Needed",
                                 JOptionPane.YES_NO_OPTION,
                                 JOptionPane.QUESTION_MESSAGE,
                                 null,
-                                new Object[] { "Yes", "No" },
+                                new Object[]{"Yes", "No"},
                                 "Yes");
-                        // 这里可以根据用户选择的按钮进行相应处理
+                        // 根据用户选择的按钮进行相应处理
                         if (option == JOptionPane.YES_OPTION) {
                             // 用户点击了Yes按钮
-                            System.out.println("User clicked Yes");
+                            JOptionPane.showMessageDialog(null, "Good job，I'm sure you'll be able to work it out soon!");
                         } else if (option == JOptionPane.NO_OPTION) {
                             // 用户点击了No按钮
-                            System.out.println("User clicked No");
+                            JOptionPane.showMessageDialog(null, "It doesn't matter. Let's keep working hard to solve this problem!");
                         }
                     }
                 } else {
