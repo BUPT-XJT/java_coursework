@@ -2,6 +2,7 @@ package shapeville;
 
 import javax.swing.Timer;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -24,6 +25,26 @@ public class GameTimer {
                 if (timeLeftSeconds > 0) {
                     timeLeftSeconds--;
                     updateLabel();
+                    // 添加每超过30秒弹窗的逻辑
+                    if ((durationSeconds - timeLeftSeconds) % 30 == 0) {
+                        // 使用showOptionDialog显示带有yes和no按钮的对话框
+                        int option = JOptionPane.showOptionDialog(null,
+                                "DO YOU NEED HELP？",
+                                "Help Needed",
+                                JOptionPane.YES_NO_OPTION,
+                                JOptionPane.QUESTION_MESSAGE,
+                                null,
+                                new Object[] { "Yes", "No" },
+                                "Yes");
+                        // 这里可以根据用户选择的按钮进行相应处理
+                        if (option == JOptionPane.YES_OPTION) {
+                            // 用户点击了Yes按钮
+                            System.out.println("User clicked Yes");
+                        } else if (option == JOptionPane.NO_OPTION) {
+                            // 用户点击了No按钮
+                            System.out.println("User clicked No");
+                        }
+                    }
                 } else {
                     stop(); // Stop the timer itself
                     if (onTimeUpCallback != null) {
@@ -62,18 +83,6 @@ public class GameTimer {
 
     /**
      * Resets the timer to its initial duration and stops it.
-     * Call start() to begin timing again.
-     */
-    public void reset() {
-        stop();
-        this.timeLeftSeconds = this.durationSeconds;
-        updateLabel();
-    }
-
-    /**
-     * Resets the timer to a new duration and stops it.
-     * 
-     * @param newDurationSeconds The new duration in seconds.
      */
     public void reset(int newDurationSeconds) {
         stop();
