@@ -227,34 +227,31 @@ public class AngleIdentificationPanel extends TaskPanel {
         }
 
         if (isCorrect) {
-            awardPointsAndShowFeedback(false); // Basic scoring for angle types
-            questionManager.recordAngleTypeIdentified(correctTypeForDisplayedAngle); // Mark this type as identified
-            questionsDoneThisTaskSession++; // Increment session counter (tracks total correct identifications)
+        awardPointsAndShowFeedback(false); 
+        questionManager.recordAngleTypeIdentified(correctTypeForDisplayedAngle); 
+        questionsDoneThisTaskSession++; 
+        // 启用输入组件
+        enableTaskInputs();
+        Timer timer = new Timer(1500, e -> nextQuestion());
+        timer.setRepeats(false);
+        timer.start();
+    } else {
+        if (scoreManager.canAttempt()) {
+            showFeedback(UIConstants.MSG_TRY_AGAIN + " ("
+                    + (ScoreManager.MAX_ATTEMPTS_PER_QUESTION - scoreManager.getCurrentQuestionAttempts())
+                    + " attempts left)", false);
+            // 启用输入组件
+            enableTaskInputs();
+            angleTypeSelector.requestFocusInWindow();
+        } else {
+            showSolution(); 
             disableTaskInputs();
-
-            Timer timer = new Timer(1500, e -> nextQuestion());
+            Timer timer = new Timer(3000, e -> nextQuestion());
             timer.setRepeats(false);
             timer.start();
-        } else {
-            if (scoreManager.canAttempt()) {
-                showFeedback(UIConstants.MSG_TRY_AGAIN + " ("
-                        + (ScoreManager.MAX_ATTEMPTS_PER_QUESTION - scoreManager.getCurrentQuestionAttempts())
-                        + " attempts left)", false);
-                angleTypeSelector.requestFocusInWindow();
-            } else {
-                showSolution(); // This will show the correct type for the *displayed* angle
-                // Even if wrong, it counts as "an interaction" for one of the target types for
-                // QM progress.
-                // QM logic for getTargetAngleTypeToIdentify should handle moving to the next
-                // UNIDENTIFIED target type.
-                disableTaskInputs();
-
-                Timer timer = new Timer(3000, e -> nextQuestion());
-                timer.setRepeats(false);
-                timer.start();
-            }
         }
     }
+}
 
     @Override
     protected void showSolution() {
