@@ -228,21 +228,24 @@ public class QuestionManager {
         compoundShapesDataList.add(shape1);
 
         // ... ADD ALL 8 OTHER COMPOUND SHAPES FROM FIGURE 10 HERE ...
-        
+
         Map<String, Object> shape2 = new HashMap<>();
         shape2.put("id", "CS_Fig10_2");
         shape2.put("name", "Compound Shape (Fig 10-2)");
         shape2.put("image", "compound2.png");
-        double area2_rect_top = 20.0 * (21.0 - 10.0); // 20 * 11 = 220
-        double area2_rect_bottom_left = 11.0 * 10.0;   // 110
+        double area2_rect_top = 20.0 * (20.0 - 10.0); // 20 * 11 = 220
+        double area2_rect_bottom_left = 11.0 * 10.0; // 110
         double totalArea2 = area2_rect_top + area2_rect_bottom_left; // 330
         shape2.put("area", totalArea2);
         StringBuilder sol2 = new StringBuilder();
         sol2.append("Decompose into two rectangles:\n");
-        sol2.append("1. Top Rectangle: 20 cm × (21-10) cm = 20 cm × 11 cm = ").append(df.format(area2_rect_top)).append(" cm²\n");
-        sol2.append("2. Bottom-Left Rectangle: 11 cm × 10 cm = ").append(df.format(area2_rect_bottom_left)).append(" cm²\n");
-        sol2.append("Total Area = ").append(df.format(area2_rect_top)).append(" + ").append(df.format(area2_rect_bottom_left))
-            .append(" = ").append(df.format(totalArea2)).append(" cm²");
+        sol2.append("1. Top Rectangle: 20 cm × (21-10) cm = 20 cm × 11 cm = ").append(df.format(area2_rect_top))
+                .append(" cm²\n");
+        sol2.append("2. Bottom-Left Rectangle: 11 cm × 10 cm = ").append(df.format(area2_rect_bottom_left))
+                .append(" cm²\n");
+        sol2.append("Total Area = ").append(df.format(area2_rect_top)).append(" + ")
+                .append(df.format(area2_rect_bottom_left))
+                .append(" = ").append(df.format(totalArea2)).append(" cm²");
         shape2.put("solution_breakdown", sol2.toString());
         compoundShapesDataList.add(shape2);
 
@@ -251,15 +254,16 @@ public class QuestionManager {
         shape3.put("name", "Compound Shape (Fig 10-3)");
         shape3.put("image", "compound3.png");
         double area3_rect_left = 18.0 * 19.0; // 342
-        double area3_rect_right = 16.0 * 16.0;  // 256
+        double area3_rect_right = 16.0 * 16.0; // 256
         double totalArea3 = area3_rect_left + area3_rect_right; // 598
         shape3.put("area", totalArea3);
         StringBuilder sol3 = new StringBuilder();
         sol3.append("Decompose into two rectangles:\n");
         sol3.append("1. Left Rectangle: 18 cm × 19 cm = ").append(df.format(area3_rect_left)).append(" cm²\n");
         sol3.append("2. Right Rectangle: 16 cm × 16 cm = ").append(df.format(area3_rect_right)).append(" cm²\n");
-        sol3.append("Total Area = ").append(df.format(area3_rect_left)).append(" + ").append(df.format(area3_rect_right))
-            .append(" = ").append(df.format(totalArea3)).append(" cm²");
+        sol3.append("Total Area = ").append(df.format(area3_rect_left)).append(" + ")
+                .append(df.format(area3_rect_right))
+                .append(" = ").append(df.format(totalArea3)).append(" cm²");
         shape3.put("solution_breakdown", sol3.toString());
         compoundShapesDataList.add(shape3);
 
@@ -267,18 +271,20 @@ public class QuestionManager {
         shape4.put("id", "CS_Fig10_4");
         shape4.put("name", "Compound Shape (Fig 10-4)");
         shape4.put("image", "compound4.png");
-        double area4_bottom = 24.0 * 6.0;                     // 144
-        double area4_middle = 12.0 * (12.0 - 2.0 - 6.0);      // 12 * 4 = 48
-        double area4_top = 12.0 * 2.0;                        // 24
+        double area4_bottom = 24.0 * 6.0; // 144
+        double area4_middle = 12.0 * (12.0 - 2.0 - 6.0); // 12 * 4 = 48
+        double area4_top = 12.0 * 2.0; // 24
         double totalArea4 = area4_bottom + area4_middle + area4_top; // 216
         shape4.put("area", totalArea4);
         StringBuilder sol4 = new StringBuilder();
         sol4.append("Decompose into three rectangles (from bottom to top):\n");
         sol4.append("1. Bottom Rectangle: 24 m × 6 m = ").append(df.format(area4_bottom)).append(" m²\n");
-        sol4.append("2. Middle-Left Rectangle: 12 m × (12-2-6) m = 12 m × 4 m = ").append(df.format(area4_middle)).append(" m²\n");
+        sol4.append("2. Middle-Left Rectangle: 12 m × (12-2-6) m = 12 m × 4 m = ").append(df.format(area4_middle))
+                .append(" m²\n");
         sol4.append("3. Top-Left Rectangle: 12 m × 2 m = ").append(df.format(area4_top)).append(" m²\n");
-        sol4.append("Total Area = ").append(df.format(area4_bottom)).append(" + ").append(df.format(area4_middle)).append(" + ").append(df.format(area4_top))
-            .append(" = ").append(df.format(totalArea4)).append(" m²");
+        sol4.append("Total Area = ").append(df.format(area4_bottom)).append(" + ").append(df.format(area4_middle))
+                .append(" + ").append(df.format(area4_top))
+                .append(" = ").append(df.format(totalArea4)).append(" m²");
         shape4.put("solution_breakdown", sol4.toString());
         compoundShapesDataList.add(shape4);
 
@@ -286,66 +292,74 @@ public class QuestionManager {
         shape5.put("id", "CS_Fig10_5");
         shape5.put("name", "Compound Shape (Fig 10-5)");
         shape5.put("image", "compound5.png");
-        double area5_rect = 4.0 * 2.0;   // 8
-        double area5_tri = 0.5 * 4.0 * (4.0 - 2.0); // 0.5 * 4 * 2 = 4
+        double area5_rect = 4.0 * 3.0; // 12
+        double area5_tri = 0.5 * 4.0 * (6.0 - 3.0); // 0.5 * 4 * 2 = 4
         double totalArea5 = area5_rect + area5_tri; // 12
         shape5.put("area", totalArea5);
         StringBuilder sol5 = new StringBuilder();
         sol5.append("Decompose into a rectangle and a right-angled triangle:\n");
         sol5.append("1. Bottom Rectangle: 4 m × 2 m = ").append(df.format(area5_rect)).append(" m²\n");
-        sol5.append("2. Top Triangle: base 4 m, height (4-2) m = 2 m. Area = 0.5 × 4 m × 2 m = ").append(df.format(area5_tri)).append(" m²\n");
+        sol5.append("2. Top Triangle: base 4 m, height (4-2) m = 2 m. Area = 0.5 × 4 m × 2 m = ")
+                .append(df.format(area5_tri)).append(" m²\n");
         sol5.append("Total Area = ").append(df.format(area5_rect)).append(" + ").append(df.format(area5_tri))
-            .append(" = ").append(df.format(totalArea5)).append(" m² (Ignoring the '16m' as it seems unrelated or a typo for this specific shape).");
+                .append(" = ").append(df.format(totalArea5))
+                .append(" m² (Ignoring the '16m' as it seems unrelated or a typo for this specific shape).");
         shape5.put("solution_breakdown", sol5.toString());
         compoundShapesDataList.add(shape5);
 
-        Map<String, Object> shape6 = new HashMap<>();
-        shape6.put("id", "CS_Fig10_6");
-        shape6.put("name", "Compound Shape (Fig 10-6 - Trapezium)");
-        shape6.put("image", "compound6.png");
-        double totalArea6 = 0.5 * (9.0 + 20.0) * 11.0; // 159.5
-        shape6.put("area", totalArea6);
-        StringBuilder sol6 = new StringBuilder();
-        sol6.append("This shape is a trapezium.\n");
-        sol6.append("Formula: Area = 0.5 × (a+b) × h\n");
-        sol6.append("Given: a = 9 m, b = 20 m, h = 11 m\n");
-        sol6.append("Area = 0.5 × (9 + 20) × 11 = 0.5 × 29 × 11 = ").append(df.format(totalArea6)).append(" m²");
-        shape6.put("solution_breakdown", sol6.toString());
-        compoundShapesDataList.add(shape6);
+        // Map<String, Object> shape6 = new HashMap<>();
+        // shape6.put("id", "CS_Fig10_6");
+        // shape6.put("name", "Compound Shape (Fig 10-6 - Trapezium)");
+        // shape6.put("image", "compound6.png");
+        // double totalArea6 = 0.5 * (9.0 + 20.0) * 11.0; // 159.5
+        // shape6.put("area", totalArea6);
+        // StringBuilder sol6 = new StringBuilder();
+        // sol6.append("This shape is a trapezium.\n");
+        // sol6.append("Formula: Area = 0.5 × (a+b) × h\n");
+        // sol6.append("Given: a = 9 m, b = 20 m, h = 11 m\n");
+        // sol6.append("Area = 0.5 × (9 + 20) × 11 = 0.5 × 29 × 11 =
+        // ").append(df.format(totalArea6)).append(" m²");
+        // shape6.put("solution_breakdown", sol6.toString());
+        // compoundShapesDataList.add(shape6);
 
-        Map<String, Object> shape7 = new HashMap<>();
-        shape7.put("id", "CS_Fig10_7");
-        shape7.put("name", "Compound Shape (Fig 10-7)");
-        shape7.put("image", "compound7.png");
-        double area7_rect = 14.0 * 5.0;  // 70
-        double area7_tri = 0.5 * 14.0 * (12.0 - 5.0); // 0.5 * 14 * 7 = 49
-        double totalArea7 = area7_rect + area7_tri; // 119
-        shape7.put("area", totalArea7);
-        StringBuilder sol7 = new StringBuilder();
-        sol7.append("Decompose into a rectangle and a triangle:\n");
-        sol7.append("1. Bottom Rectangle: 14 cm × 5 cm = ").append(df.format(area7_rect)).append(" cm²\n");
-        sol7.append("2. Top Triangle: base 14 cm, height (12-5) cm = 7 cm. Area = 0.5 × 14 cm × 7 cm = ").append(df.format(area7_tri)).append(" cm²\n");
-        sol7.append("Total Area = ").append(df.format(area7_rect)).append(" + ").append(df.format(area7_tri))
-            .append(" = ").append(df.format(totalArea7)).append(" cm²");
-        shape7.put("solution_breakdown", sol7.toString());
-        compoundShapesDataList.add(shape7);
+        // Map<String, Object> shape7 = new HashMap<>();
+        // shape7.put("id", "CS_Fig10_7");
+        // shape7.put("name", "Compound Shape (Fig 10-7)");
+        // shape7.put("image", "compound7.png");
+        // double area7_rect = 14.0 * 5.0; // 70
+        // double area7_tri = 0.5 * 14.0 * (12.0 - 5.0); // 0.5 * 14 * 7 = 49
+        // double totalArea7 = area7_rect + area7_tri; // 119
+        // shape7.put("area", totalArea7);
+        // StringBuilder sol7 = new StringBuilder();
+        // sol7.append("Decompose into a rectangle and a triangle:\n");
+        // sol7.append("1. Bottom Rectangle: 14 cm × 5 cm =
+        // ").append(df.format(area7_rect)).append(" cm²\n");
+        // sol7.append("2. Top Triangle: base 14 cm, height (12-5) cm = 7 cm. Area = 0.5
+        // × 14 cm × 7 cm = ").append(df.format(area7_tri)).append(" cm²\n");
+        // sol7.append("Total Area = ").append(df.format(area7_rect)).append(" +
+        // ").append(df.format(area7_tri))
+        // .append(" = ").append(df.format(totalArea7)).append(" cm²");
+        // shape7.put("solution_breakdown", sol7.toString());
+        // compoundShapesDataList.add(shape7);
 
         Map<String, Object> shape8 = new HashMap<>();
         shape8.put("id", "CS_Fig10_8");
         shape8.put("name", "Compound Shape (Fig 10-8)");
         shape8.put("image", "compound8.png");
         double area8_center_col = 36.0 * (36.0 + 36.0 + 36.0); // 36 * 108 = 3888
-        double area8_wing = ((60.0 - 36.0) / 2.0) * 36.0;    // 12 * 36 = 432
+        double area8_wing = ((60.0 - 36.0) / 2.0) * 36.0; // 12 * 36 = 432
         double totalArea8 = area8_center_col + (2 * area8_wing); // 3888 + 864 = 4752
         shape8.put("area", totalArea8);
         StringBuilder sol8 = new StringBuilder();
         sol8.append("Decompose into a central tall rectangle and two side rectangles at the bottom:\n");
-        sol8.append("1. Central Rectangle: 36 m × (36+36+36) m = 36 m × 108 m = ").append(df.format(area8_center_col)).append(" m²\n");
+        sol8.append("1. Central Rectangle: 36 m × (36+36+36) m = 36 m × 108 m = ").append(df.format(area8_center_col))
+                .append(" m²\n");
         sol8.append("2. Two Side Rectangles: width (60-36)/2 = 12 m each, height 36 m.\n");
         sol8.append("   Area of one side rectangle = 12 m × 36 m = ").append(df.format(area8_wing)).append(" m²\n");
-        sol8.append("   Area of both side rectangles = 2 × ").append(df.format(area8_wing)).append(" = ").append(df.format(2*area8_wing)).append(" m²\n");
-        sol8.append("Total Area = ").append(df.format(area8_center_col)).append(" + ").append(df.format(2*area8_wing))
-            .append(" = ").append(df.format(totalArea8)).append(" m²");
+        sol8.append("   Area of both side rectangles = 2 × ").append(df.format(area8_wing)).append(" = ")
+                .append(df.format(2 * area8_wing)).append(" m²\n");
+        sol8.append("Total Area = ").append(df.format(area8_center_col)).append(" + ").append(df.format(2 * area8_wing))
+                .append(" = ").append(df.format(totalArea8)).append(" m²");
         shape8.put("solution_breakdown", sol8.toString());
         compoundShapesDataList.add(shape8);
 
@@ -354,15 +368,16 @@ public class QuestionManager {
         shape9.put("name", "Compound Shape (Fig 10-9)");
         shape9.put("image", "compound9.png");
         double area9_rect_left = 10.0 * 11.0; // 110
-        double area9_rect_right = 8.0 * 8.0;   // 64
+        double area9_rect_right = 8.0 * 8.0; // 64
         double totalArea9 = area9_rect_left + area9_rect_right; // 174
         shape9.put("area", totalArea9);
         StringBuilder sol9 = new StringBuilder();
         sol9.append("Decompose into two rectangles:\n");
         sol9.append("1. Left Rectangle: 10 m × 11 m = ").append(df.format(area9_rect_left)).append(" m²\n");
         sol9.append("2. Right Rectangle: 8 m × 8 m = ").append(df.format(area9_rect_right)).append(" m²\n");
-        sol9.append("Total Area = ").append(df.format(area9_rect_left)).append(" + ").append(df.format(area9_rect_right))
-            .append(" = ").append(df.format(totalArea9)).append(" m²");
+        sol9.append("Total Area = ").append(df.format(area9_rect_left)).append(" + ")
+                .append(df.format(area9_rect_right))
+                .append(" = ").append(df.format(totalArea9)).append(" m²");
         shape9.put("solution_breakdown", sol9.toString());
         compoundShapesDataList.add(shape9);
 

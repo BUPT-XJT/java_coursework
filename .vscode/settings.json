@@ -1,6 +1,7 @@
 {
     "java.project.sourcePaths": [
         "src",
-        "resources"
+        "resources",
+        "assets/shapeville"
     ]
 }
