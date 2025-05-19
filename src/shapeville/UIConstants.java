@@ -10,7 +10,7 @@ public class UIConstants {
     public static final Color BUTTON_COLOR = new Color(70, 130, 180); // Steel Blue
     public static final Color BUTTON_HOVER_COLOR = new Color(100, 149, 237); // Cornflower Blue
     public static final Color TEXT_COLOR_DARK = new Color(50, 50, 50);
-    public static final Color TEXT_COLOR_LIGHT = Color.WHITE;
+    public static final Color TEXT_COLOR_LIGHT = Color.BLACK;
     public static final Color ACCENT_COLOR_1 = new Color(255, 165, 0); // Orange for highlights
     public static final Color ACCENT_COLOR_2 = new Color(60, 179, 113); // Medium Sea Green for positive feedback
 
