@@ -1,7 +1,6 @@
 package shapeville.panels;
 
 import shapeville.*; // Import all from base package
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,7 +18,6 @@ public class CircleCalculationPanel extends TaskPanel {
     private GameTimer gameTimer;
     private JLabel timerLabel;
     private JLabel solutionImageLabel; // To show image from Fig 5/6 style
-
     private String currentCalcTypeKey; // e.g., "RadiusArea" from QuestionManager
     private int currentDimensionValue;
     private double correctAnswer;
@@ -33,11 +31,26 @@ public class CircleCalculationPanel extends TaskPanel {
         // Top: Selectors and Timer
         JPanel topSelectorsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 5));
         topSelectorsPanel.setOpaque(false);
-        calculationTypeSelector = new JComboBox<>(new String[] { "Area", "Circumference" });
-        givenValueSelector = new JComboBox<>(new String[] { "Radius", "Diameter" });
-        // These selectors are for display only; QM drives the actual task sequence.
-        calculationTypeSelector.setEnabled(false);
-        givenValueSelector.setEnabled(false);
+
+        calculationTypeSelector = new JComboBox<>(new String[]{"Area", "Circumference"});
+        givenValueSelector = new JComboBox<>(new String[]{"Radius", "Diameter"});
+
+        // 使选择器可用，让用户能操作
+        calculationTypeSelector.setEnabled(true);
+        givenValueSelector.setEnabled(true);
+
+        calculationTypeSelector.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateQuestion();
+            }
+        });
+        givenValueSelector.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateQuestion();
+            }
+        });
 
         timerLabel = new JLabel("Time: 00:00");
         timerLabel.setFont(UIConstants.LABEL_FONT.deriveFont(Font.BOLD));
@@ -47,6 +60,7 @@ public class CircleCalculationPanel extends TaskPanel {
         topSelectorsPanel.add(new JLabel("Given:"));
         topSelectorsPanel.add(givenValueSelector);
         topSelectorsPanel.add(timerLabel);
+
         centralContentPanel.add(topSelectorsPanel, BorderLayout.NORTH);
 
         // Middle: Question and Solution Image
@@ -70,11 +84,13 @@ public class CircleCalculationPanel extends TaskPanel {
         solutionImageLabel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
         solutionImageLabel.setPreferredSize(new Dimension(400, 200)); // Adjust as needed for Fig 5/6
         questionSolutionArea.add(solutionImageLabel);
+
         centralContentPanel.add(questionSolutionArea, BorderLayout.CENTER);
 
         // Bottom: Answer Input
         JPanel answerInputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
         answerInputPanel.setOpaque(false);
+
         answerInputPanel.add(new JLabel("Enter Answer:"));
         answerField = new JTextField(10);
         answerField.setFont(UIConstants.INPUT_FONT);
@@ -87,10 +103,13 @@ public class CircleCalculationPanel extends TaskPanel {
                 }
             }
         });
+
         submitButton = createStyledButton("Submit Answer");
         submitButton.addActionListener(e -> checkAnswer());
+
         answerInputPanel.add(answerField);
         answerInputPanel.add(submitButton);
+
         centralContentPanel.add(answerInputPanel, BorderLayout.SOUTH);
 
         gameTimer = new GameTimer(UIConstants.TIMER_DURATION_SHORT, timerLabel, this::handleTimeUp);
@@ -103,11 +122,14 @@ public class CircleCalculationPanel extends TaskPanel {
         feedbackLabel.setText(" ");
         questionManager.resetTaskProgress("CIRCLE_CALC"); // Resets QM to cycle through circle calc tasks
         enableTaskInputs();
-        nextQuestion();
+        updateQuestion();
     }
 
-    @Override
-    protected void nextQuestion() {
+    private void updateQuestion() {
+        String selectedCalcType = (String) calculationTypeSelector.getSelectedItem();
+        String selectedGivenValue = (String) givenValueSelector.getSelectedItem();
+        currentCalcTypeKey = selectedGivenValue + selectedCalcType;
+
         if (questionManager.allCircleCalcTasksPracticedForTask()) {
             showFeedback("Fantastic! You've practiced all circle calculation types. Task complete!", true);
             disableTaskInputs();
@@ -116,27 +138,13 @@ public class CircleCalculationPanel extends TaskPanel {
             return;
         }
 
-        currentCalcTypeKey = questionManager.getCurrentCircleCalcTaskKey();
-        if (currentCalcTypeKey == null) {
-            showFeedback("No more circle calculation tasks.", true);
-            disableTaskInputs();
-            return;
-        }
-
-        // Update JComboBox displays based on the currentCalcTypeKey from QM
-        String calcTypeDisplay = currentCalcTypeKey.endsWith("Area") ? "Area" : "Circumference";
-        String givenTypeDisplay = currentCalcTypeKey.startsWith("Radius") ? "Radius" : "Diameter";
-        calculationTypeSelector.setSelectedItem(calcTypeDisplay);
-        givenValueSelector.setSelectedItem(givenTypeDisplay);
-
         scoreManager.resetQuestionAttempts();
-        currentDimensionValue = questionManager.getRandomCircleDimension(); // 1-20
+        currentDimensionValue = questionManager.getRandomCircleDimension(); // 1 - 20
         correctAnswer = questionManager.calculateCircleProperty(currentCalcTypeKey, currentDimensionValue);
 
-        questionLabel
-                .setText("<html><div style='text-align:center;'>Calculate the <b>" + calcTypeDisplay.toLowerCase() +
-                        "</b> of a circle given its <b>" + givenTypeDisplay.toLowerCase() +
-                        "</b> = <b>" + currentDimensionValue + "</b> units.</div></html>");
+        questionLabel.setText("<html><div style='text-align:center;'>Calculate the <b>" + selectedCalcType.toLowerCase() +
+                "</b> of a circle given its <b>" + selectedGivenValue.toLowerCase() +
+                "</b> = <b>" + currentDimensionValue + "</b> units.</div></html>");
 
         answerField.setText("");
         feedbackLabel.setText("Enter your calculated value.");
@@ -158,7 +166,7 @@ public class CircleCalculationPanel extends TaskPanel {
         Timer timer = new Timer(3500, e -> {
             questionManager.recordCircleCalcTaskPracticed(currentCalcTypeKey);
             questionsDoneThisTaskSession++;
-            nextQuestion();
+            updateQuestion();
         });
         timer.setRepeats(false);
         timer.start();
@@ -189,14 +197,14 @@ public class CircleCalculationPanel extends TaskPanel {
                 questionManager.recordCircleCalcTaskPracticed(currentCalcTypeKey);
                 questionsDoneThisTaskSession++;
 
-                Timer timer = new Timer(3500, e -> nextQuestion());
+                Timer timer = new Timer(3500, e -> updateQuestion());
                 timer.setRepeats(false);
                 timer.start();
             } else {
                 if (scoreManager.canAttempt()) {
-                    showFeedback(UIConstants.MSG_TRY_AGAIN + " ("
-                            + (ScoreManager.MAX_ATTEMPTS_PER_QUESTION - scoreManager.getCurrentQuestionAttempts())
-                            + " attempts left)", false);
+                    showFeedback(UIConstants.MSG_TRY_AGAIN + " (" +
+                            (ScoreManager.MAX_ATTEMPTS_PER_QUESTION - scoreManager.getCurrentQuestionAttempts()) +
+                            " attempts left)", false);
                     answerField.selectAll();
                     answerField.requestFocusInWindow();
                     gameTimer.start();
@@ -206,7 +214,7 @@ public class CircleCalculationPanel extends TaskPanel {
                     questionManager.recordCircleCalcTaskPracticed(currentCalcTypeKey);
                     questionsDoneThisTaskSession++;
 
-                    Timer timer = new Timer(3500, e -> nextQuestion());
+                    Timer timer = new Timer(3500, e -> updateQuestion());
                     timer.setRepeats(false);
                     timer.start();
                 }
@@ -240,8 +248,8 @@ public class CircleCalculationPanel extends TaskPanel {
             ImageIcon icon = ImageLoader.loadImage(imageName);
             if (icon != null && icon.getIconWidth() > 0) {
                 Image img = icon.getImage();
-                int newWidth = solutionImageLabel.getWidth() > 0 ? solutionImageLabel.getWidth() - 10 : 380;
-                int newHeight = solutionImageLabel.getHeight() > 0 ? solutionImageLabel.getHeight() - 10 : 180;
+                int newWidth = solutionImageLabel.getWidth() > 0? solutionImageLabel.getWidth() - 10 : 380;
+                int newHeight = solutionImageLabel.getHeight() > 0? solutionImageLabel.getHeight() - 10 : 180;
                 if (newWidth <= 0 || newHeight <= 0) {
                     solutionImageLabel.setIcon(icon);
                 } else {
@@ -266,5 +274,11 @@ public class CircleCalculationPanel extends TaskPanel {
     protected void enableTaskInputs() {
         answerField.setEnabled(true);
         submitButton.setEnabled(true);
+    }
+
+    @Override
+    protected void nextQuestion() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'nextQuestion'");
     }
 }
