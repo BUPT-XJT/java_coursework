@@ -448,7 +448,7 @@ public class QuestionManager {
             Map<String, Object> sector3 = new HashMap<>();
         sector3.put("id", "SA_Fig13_3");
         sector3.put("name", "Sector (Fig 13 - 3: 19cm, 120°)");
-        sector2.put("image", "sector3.png"); // Ensure this image exists
+        sector3.put("image", "sector3.png"); // Ensure this image exists
         double r3 = 19.0;
         double angle3 = 120.0;
         double area3 = (angle3 / 360.0) * 3.14 * r3 * r3;
