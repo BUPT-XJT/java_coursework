@@ -39,7 +39,7 @@ public class GameTimer {
                         // 根据用户选择的按钮进行相应处理
                         if (option == JOptionPane.YES_OPTION) {
                             // 用户点击了Yes按钮
-                            JOptionPane.showMessageDialog(null, "Good job，I'm sure you'll be able to work it out soon!");
+                            JOptionPane.showMessageDialog(null, "Good job,I'm sure you'll be able to work it out soon!");
                         } else if (option == JOptionPane.NO_OPTION) {
                             // 用户点击了No按钮
                             JOptionPane.showMessageDialog(null, "It doesn't matter. Let's keep working hard to solve this problem!");
