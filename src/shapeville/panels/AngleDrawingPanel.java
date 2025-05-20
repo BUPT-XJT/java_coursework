@@ -70,7 +70,7 @@ public class AngleDrawingPanel extends JPanel {
                 g2d.drawArc(centerX - radius / 3, centerY - radius / 3, 2 * (radius / 3), 2 * (radius / 3), 0, 360);
             } else {
                 g2d.drawArc(centerX - radius / 3, centerY - radius / 3, 2 * (radius / 3), 2 * (radius / 3), 0,
-                        -angleInDegrees);
+                        angleInDegrees);
             }
         }
 
@@ -101,5 +101,6 @@ public class AngleDrawingPanel extends JPanel {
         textY += fm.getAscent() / 2; // Roughly center vertically
 
         g2d.drawString(angleText, textX, textY);
+        
     }
 }
