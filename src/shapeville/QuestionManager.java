@@ -275,18 +275,14 @@ public class QuestionManager {
         shape4.put("name", "Compound Shape (Fig 10-4)");
         shape4.put("image", "compound4.png");
         double area4_bottom = 24.0 * 6.0; // 144
-        double area4_middle = 12.0 * (12.0 - 2.0 - 6.0); // 12 * 4 = 48
-        double area4_top = 12.0 * 2.0; // 24
-        double totalArea4 = area4_bottom + area4_middle + area4_top; // 216
+        double area4_top = 12.0 * 12.0; // 144
+        double totalArea4 = area4_bottom + area4_top; // 216
         shape4.put("area", totalArea4);
         StringBuilder sol4 = new StringBuilder();
         sol4.append("Decompose into three rectangles (from bottom to top):\n");
         sol4.append("1. Bottom Rectangle: 24 m × 6 m = ").append(df.format(area4_bottom)).append(" m²\n");
-        sol4.append("2. Middle-Left Rectangle: 12 m × (12-2-6) m = 12 m × 4 m = ").append(df.format(area4_middle))
-                .append(" m²\n");
-        sol4.append("3. Top-Left Rectangle: 12 m × 2 m = ").append(df.format(area4_top)).append(" m²\n");
-        sol4.append("Total Area = ").append(df.format(area4_bottom)).append(" + ").append(df.format(area4_middle))
-                .append(" + ").append(df.format(area4_top))
+        sol4.append("2. Top Rectangle: 12 m × 12 m = ").append(df.format(area4_top)).append(" m²\n");
+        sol4.append("Total Area = ").append(df.format(area4_bottom)).append(" + ").append(df.format(area4_top))
                 .append(" = ").append(df.format(totalArea4)).append(" m²");
         shape4.put("solution_breakdown", sol4.toString());
         compoundShapesDataList.add(shape4);
@@ -349,15 +345,15 @@ public class QuestionManager {
         shape8.put("id", "CS_Fig10_8");
         shape8.put("name", "Compound Shape (Fig 10-8)");
         shape8.put("image", "compound8.png");
-        double area8_center_col = 36.0 * (36.0 + 36.0 + 36.0); // 36 * 108 = 3888
-        double area8_wing = ((60.0 - 36.0) / 2.0) * 36.0; // 12 * 36 = 432
-        double totalArea8 = area8_center_col + (2 * area8_wing); // 3888 + 864 = 4752
+        double area8_center_col = 36.0 * (36.0 + 36.0); // 36 * 72 = 2592
+        double area8_wing = (60.0 - 36.0) * 36.0; // 24 * 36 = 864
+        double totalArea8 = area8_center_col + area8_wing; // 2592 + 864 = 3456
         shape8.put("area", totalArea8);
         StringBuilder sol8 = new StringBuilder();
         sol8.append("Decompose into a central tall rectangle and two side rectangles at the bottom:\n");
-        sol8.append("1. Central Rectangle: 36 m × (36+36+36) m = 36 m × 108 m = ").append(df.format(area8_center_col))
+        sol8.append("1. Central Rectangle: 36 m × (36+36) m = 36 m × 72 m = ").append(df.format(area8_center_col))
                 .append(" m²\n");
-        sol8.append("2. Two Side Rectangles: width (60-36)/2 = 12 m each, height 36 m.\n");
+        sol8.append("2. Two Side Rectangles: width (60-36) = 24 m each, height 36 m.\n");
         sol8.append("   Area of one side rectangle = 12 m × 36 m = ").append(df.format(area8_wing)).append(" m²\n");
         sol8.append("   Area of both side rectangles = 2 × ").append(df.format(area8_wing)).append(" = ")
                 .append(df.format(2 * area8_wing)).append(" m²\n");
