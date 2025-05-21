@@ -28,6 +28,7 @@ public class ShapevilleApp extends JFrame {
         setSize(850, 700); // 稍微增大尺寸以容纳更多内容
         setLocationRelativeTo(null); // 居中显示
 
+       
         scoreManager = new ScoreManager();
         questionManager = new QuestionManager(); // 初始化问题数据管理器
 
@@ -117,5 +118,12 @@ public class ShapevilleApp extends JFrame {
             ShapevilleApp app = new ShapevilleApp();
             app.setVisible(true);
         });
+
     }
+
+    
+  
+
+
+
 }

@@ -1,14 +1,15 @@
-
 package shapeville;
 
 public class ScoreManager {
     private int totalScore;
     private int currentQuestionAttempts; // Attempts for the current question
     public static final int MAX_ATTEMPTS_PER_QUESTION = 3;
+    private SoundManager soundManager; // 添加 SoundManager 实例
 
     public ScoreManager() {
         this.totalScore = 0;
         this.currentQuestionAttempts = 0;
+        this.soundManager = new SoundManager(); // 初始化 SoundManager
     }
 
     /**
@@ -82,8 +83,16 @@ public class ScoreManager {
      * @param isAdvancedScoring true if advanced scoring applies.
      * @return The points awarded.
      */
+
     public int awardCalculatedPoints(boolean isAdvancedScoring) {
         int points = calculatePointsForCurrentAttempt(isAdvancedScoring);
+        if (points > 0) {
+            SoundManager soundManager = new SoundManager();
+            soundManager.playSound("correct");
+        } else if (points == 0) {
+            SoundManager soundManager = new SoundManager();
+            soundManager.playSound("wrong");
+        }
         this.totalScore += points;
         return points;
     }
@@ -100,4 +109,5 @@ public class ScoreManager {
         this.totalScore = 0;
         this.currentQuestionAttempts = 0;
     }
+
 }
