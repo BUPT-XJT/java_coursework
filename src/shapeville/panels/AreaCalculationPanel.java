@@ -1,7 +1,6 @@
 package shapeville.panels;
 
 import shapeville.*; // Import all from base package
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,14 +11,14 @@ import java.text.DecimalFormat;
 import java.util.Map;
 
 public class AreaCalculationPanel extends TaskPanel {
-    private JComboBox<String> shapeSelectorComboBox; // User does not select, QM drives this for "practice all 4"
-    private JLabel currentShapeDisplayLabel; // To show which shape is currently being practiced
+    private JComboBox<String> shapeSelectorComboBox; // 用户选择形状的下拉框
+    private JLabel currentShapeDisplayLabel; // 显示当前练习的形状
     private JLabel questionDimensionsLabel;
     private JTextField answerField;
     private JButton submitButton;
     private GameTimer gameTimer;
     private JLabel timerLabel;
-    private JLabel solutionImageLabel; // To display image with formula and substituted values (Fig 4 style)
+    private JLabel solutionImageLabel; // 显示带有公式和代入值的图片（图4风格）
 
     private String currentShapeType;
     private Map<String, Integer> currentDimensions;
@@ -31,25 +30,41 @@ public class AreaCalculationPanel extends TaskPanel {
 
         centralContentPanel.setLayout(new BorderLayout(10, 10));
 
-        // Top: Shape type display and Timer
+        // 顶部：形状类型显示和计时器
         JPanel topInfoPanel = new JPanel(new BorderLayout(10, 0));
         topInfoPanel.setOpaque(false);
+
         currentShapeDisplayLabel = new JLabel("Current Shape: ", SwingConstants.LEFT);
         currentShapeDisplayLabel.setFont(UIConstants.LABEL_FONT.deriveFont(Font.BOLD));
+
         timerLabel = new JLabel("Time: 00:00");
         timerLabel.setFont(UIConstants.LABEL_FONT.deriveFont(Font.BOLD));
         timerLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+
+        // 添加形状选择下拉框
+        String[] shapeOptions = {"Rectangle", "Parallelogram", "Triangle", "Trapezium"};
+        shapeSelectorComboBox = new JComboBox<>(shapeOptions);
+        shapeSelectorComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 用户选择形状后，更新题目
+                currentShapeType = (String) shapeSelectorComboBox.getSelectedItem();
+                nextQuestion();
+            }
+        });
+
         topInfoPanel.add(currentShapeDisplayLabel, BorderLayout.CENTER);
         topInfoPanel.add(timerLabel, BorderLayout.EAST);
+        topInfoPanel.add(shapeSelectorComboBox, BorderLayout.WEST);
+
         centralContentPanel.add(topInfoPanel, BorderLayout.NORTH);
 
-        // Middle: Question (dimensions) and Solution Image display area
-        JPanel questionAndSolutionArea = new JPanel(new GridLayout(2, 1, 5, 15)); // Dimensions above, solution image
-                                                                                  // below
+        // 中间：问题（尺寸）和解决方案图片显示区域
+        JPanel questionAndSolutionArea = new JPanel(new GridLayout(2, 1, 5, 15));
         questionAndSolutionArea.setOpaque(false);
 
         questionDimensionsLabel = new JLabel("Dimensions will appear here.", SwingConstants.CENTER);
-        questionDimensionsLabel.setFont(UIConstants.LABEL_FONT.deriveFont(18f)); // Larger font for dimensions
+        questionDimensionsLabel.setFont(UIConstants.LABEL_FONT.deriveFont(18f));
         questionDimensionsLabel.setOpaque(true);
         questionDimensionsLabel.setBackground(Color.WHITE);
         questionDimensionsLabel.setBorder(BorderFactory.createCompoundBorder(
@@ -57,21 +72,22 @@ public class AreaCalculationPanel extends TaskPanel {
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)));
         questionAndSolutionArea.add(questionDimensionsLabel);
 
-        solutionImageLabel = new JLabel(); // For Fig 4 style solution image
+        solutionImageLabel = new JLabel();
         solutionImageLabel.setHorizontalAlignment(SwingConstants.CENTER);
         solutionImageLabel.setVerticalAlignment(SwingConstants.CENTER);
         solutionImageLabel.setOpaque(true);
         solutionImageLabel.setBackground(Color.WHITE);
         solutionImageLabel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
-        solutionImageLabel.setPreferredSize(new Dimension(400, 150)); // Adjust as needed
+        solutionImageLabel.setPreferredSize(new Dimension(400, 150));
         questionAndSolutionArea.add(solutionImageLabel);
 
         centralContentPanel.add(questionAndSolutionArea, BorderLayout.CENTER);
 
-        // Bottom: Answer input
+        // 底部：答案输入
         JPanel answerInputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
         answerInputPanel.setOpaque(false);
         answerInputPanel.add(new JLabel("Enter Area:"));
+
         answerField = new JTextField(10);
         answerField.setFont(UIConstants.INPUT_FONT);
         answerField.setHorizontalAlignment(JTextField.CENTER);
@@ -83,10 +99,13 @@ public class AreaCalculationPanel extends TaskPanel {
                 }
             }
         });
+
         submitButton = createStyledButton("Submit Area");
         submitButton.addActionListener(e -> checkAnswer());
+
         answerInputPanel.add(answerField);
         answerInputPanel.add(submitButton);
+
         centralContentPanel.add(answerInputPanel, BorderLayout.SOUTH);
 
         gameTimer = new GameTimer(UIConstants.TIMER_DURATION_SHORT, timerLabel, this::handleTimeUp);
@@ -97,24 +116,17 @@ public class AreaCalculationPanel extends TaskPanel {
         questionsDoneThisTaskSession = 0;
         scoreManager.resetQuestionAttempts();
         feedbackLabel.setText(" ");
-        questionManager.resetTaskProgress("AREA_CALC"); // Resets QM to cycle through basic area shapes
+        questionManager.resetTaskProgress("AREA_CALC"); // 重置QM以循环遍历基本面积形状
         enableTaskInputs();
+        // 初始化时选择第一个形状并显示题目
+        shapeSelectorComboBox.setSelectedIndex(0);
+        currentShapeType = (String) shapeSelectorComboBox.getSelectedItem();
         nextQuestion();
     }
 
     @Override
     protected void nextQuestion() {
-        if (questionManager.allBasicAreaShapesPracticedForTask(BASIC_AREAS_TO_PRACTICE_COUNT)) {
-            showFeedback("Well done! You've practiced all basic area shapes. Task complete!", true);
-            disableTaskInputs();
-            currentShapeDisplayLabel.setText("Task Complete!");
-            questionDimensionsLabel.setText("");
-            solutionImageLabel.setIcon(null);
-            return;
-        }
-
-        currentShapeType = questionManager.getCurrentBasicAreaShapeType();
-        if (currentShapeType == null) { // Should be caught by above check
+        if (currentShapeType == null) {
             showFeedback("No more shapes to practice in this category.", true);
             disableTaskInputs();
             return;
@@ -150,29 +162,25 @@ public class AreaCalculationPanel extends TaskPanel {
 
         answerField.setText("");
         feedbackLabel.setText("Enter the calculated area.");
-        solutionImageLabel.setIcon(null); // Clear previous solution image
+        solutionImageLabel.setIcon(null); // 清除之前的解决方案图片
         enableTaskInputs();
-        gameTimer.reset(UIConstants.TIMER_DURATION_SHORT); // Reset to 3 minutes
+        gameTimer.reset(UIConstants.TIMER_DURATION_SHORT); // 重置为3分钟
         gameTimer.start();
         answerField.requestFocusInWindow();
     }
 
     private void handleTimeUp() {
         if (!gameTimer.isRunning())
-            return; // Avoid multiple calls if already handled
+            return; // 如果已经处理过，避免多次调用
         gameTimer.stop();
         showFeedback(UIConstants.MSG_TIME_UP, false);
-        scoreManager.recordAttempt(); // Count as an attempt
+        scoreManager.recordAttempt(); // 计为一次尝试
 
-        // Even if time up, show solution and move to next, as per spec "3 unsuccessful
-        // attempts OR time up" (implicit)
-        // For simplicity, time up after any attempt counts as one of the 3, or just
-        // forces solution.
-        // Let's assume time-up always shows solution and moves on for this task.
-        showSolution(); // Display solution
+        // 即使时间到了，也显示解决方案并进入下一题
+        showSolution(); // 显示解决方案
         disableTaskInputs();
-        Timer timer = new Timer(3500, e -> { // Longer delay to see solution
-            questionManager.recordBasicAreaShapePracticed(currentShapeType); // Mark as practiced
+        Timer timer = new Timer(3500, e -> {
+            questionManager.recordBasicAreaShapePracticed(currentShapeType); // 标记为已练习
             questionsDoneThisTaskSession++;
             nextQuestion();
         });
@@ -184,22 +192,22 @@ public class AreaCalculationPanel extends TaskPanel {
     protected void checkAnswer() {
         if (currentShapeType == null)
             return;
-        gameTimer.stop(); // Stop timer on submission
+        gameTimer.stop(); // 提交答案时停止计时器
 
         try {
             String userAnswerText = answerField.getText().trim();
             if (userAnswerText.isEmpty()) {
                 showFeedback("Please enter your calculated area.", false);
                 if (scoreManager.canAttempt())
-                    gameTimer.start(); // Resume if attempts left
+                    gameTimer.start(); // 如果还有尝试次数，恢复计时
                 return;
             }
             double userAnswer = Double.parseDouble(userAnswerText);
             scoreManager.recordAttempt();
 
-            if (Math.abs(userAnswer - correctAnswer) < 0.01) { // Epsilon for float comparison
-                awardPointsAndShowFeedback(false); // Basic scoring
-                showSolution(); // Show image with formula and substituted values
+            if (Math.abs(userAnswer - correctAnswer) < 0.01) { // 浮点数比较的容差
+                awardPointsAndShowFeedback(false); // 基本评分
+                showSolution(); // 显示带有公式和代入值的图片
                 disableTaskInputs();
                 questionManager.recordBasicAreaShapePracticed(currentShapeType);
                 questionsDoneThisTaskSession++;
@@ -214,11 +222,11 @@ public class AreaCalculationPanel extends TaskPanel {
                             + " attempts left)", false);
                     answerField.selectAll();
                     answerField.requestFocusInWindow();
-                    gameTimer.start(); // Resume timer
+                    gameTimer.start(); // 恢复计时
                 } else {
                     showSolution();
                     disableTaskInputs();
-                    questionManager.recordBasicAreaShapePracticed(currentShapeType); // Still counts as "practiced"
+                    questionManager.recordBasicAreaShapePracticed(currentShapeType); // 仍然计为“已练习”
                     questionsDoneThisTaskSession++;
 
                     Timer timer = new Timer(3500, e -> nextQuestion());
@@ -229,7 +237,7 @@ public class AreaCalculationPanel extends TaskPanel {
         } catch (NumberFormatException e) {
             showFeedback(UIConstants.MSG_INVALID_INPUT + " Enter a number for the area.", false);
             if (scoreManager.canAttempt())
-                gameTimer.start(); // Resume timer if attempts left
+                gameTimer.start(); // 如果还有尝试次数，恢复计时
         }
     }
 
@@ -239,9 +247,7 @@ public class AreaCalculationPanel extends TaskPanel {
             return;
         feedbackLabel.setText(UIConstants.MSG_CORRECT_ANSWER_IS + df.format(correctAnswer));
 
-        // Load and display the image from Figure 4 corresponding to currentShapeType
-        // This image should show the shape, dimensions, formula, and substituted
-        // values.
+        // 加载并显示对应形状的图片
         String imageName = "";
         switch (currentShapeType.toLowerCase()) {
             case "rectangle":
@@ -259,14 +265,14 @@ public class AreaCalculationPanel extends TaskPanel {
         }
         if (!imageName.isEmpty()) {
             ImageIcon icon = ImageLoader.loadImage(imageName);
-            // Scale if necessary
+            // 必要时缩放图片
             if (icon != null && icon.getIconWidth() > 0) {
                 Image img = icon.getImage();
-                int newWidth = solutionImageLabel.getWidth() > 0 ? solutionImageLabel.getWidth() - 10 : 380;
-                int newHeight = solutionImageLabel.getHeight() > 0 ? solutionImageLabel.getHeight() - 10 : 140;
-                // Maintain aspect ratio if one dimension is 0 (auto)
-                if (newWidth <= 0 || newHeight <= 0) { // if label size not determined yet
-                    solutionImageLabel.setIcon(icon); // show original
+                int newWidth = solutionImageLabel.getWidth() > 0? solutionImageLabel.getWidth() - 10 : 380;
+                int newHeight = solutionImageLabel.getHeight() > 0? solutionImageLabel.getHeight() - 10 : 140;
+                // 如果标签尺寸尚未确定，保持原始图片显示
+                if (newWidth <= 0 || newHeight <= 0) {
+                    solutionImageLabel.setIcon(icon);
                 } else {
                     Image scaledImg = img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
                     solutionImageLabel.setIcon(new ImageIcon(scaledImg));
